@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id           String      @id @default(uuid())
+  name         String
+  email        String      @unique
+  passwordHash String
+  role         UserRole    @default(USER)
+  solicitudes  Solicitud[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("users")
+}
+
+model Videojuego {
+  id           String      @id @default(uuid())
+  name         String      @unique
+  category     String
+  categoryName String
+  description  String
+  platforms    String
+  price        Int
+  imageUrl     String
+  imageAlt     String
+  solicitudes  Solicitud[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("videojuegos")
+}
+
+model Solicitud {
+  id           String     @id @default(uuid())
+  message      String
+  userId       String
+  videojuegoId String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videojuego   Videojuego @relation(fields: [videojuegoId], references: [id], onDelete: Restrict)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([userId])
+  @@index([videojuegoId])
+  @@map("solicitudes")
+}

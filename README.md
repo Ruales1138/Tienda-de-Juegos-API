@@ -18,7 +18,15 @@ capas: `domain`, `application`, `infrastructure` e `interface`.
    ```
 
 2. Copia `.env.example` como `.env` y completa sus valores.
-3. Ejecuta el servidor en desarrollo:
+3. Genera el cliente y aplica las migraciones:
+
+   ```bash
+   npm run prisma:generate
+   npm run prisma:migrate
+   npm run prisma:seed
+   ```
+
+4. Ejecuta el servidor en desarrollo:
 
    ```bash
    npm run dev
@@ -36,3 +44,12 @@ La API queda disponible en `http://localhost:4000`. El endpoint
 | `JWT_EXPIRES_IN` | Tiempo de expiración de los tokens |
 | `PORT` | Puerto local de la API |
 | `FRONTEND_URL` | URL permitida para CORS |
+
+## Datos de prueba del seed
+
+El seed carga los tres videojuegos de Pixel Forge y dos usuarios:
+
+| Rol | Email | Contraseña |
+| --- | --- | --- |
+| Admin | `admin@pixelforge.test` | `PixelForgeAdmin2026!` |
+| Usuario | `usuario@pixelforge.test` | `PixelForgeUser2026!` |
