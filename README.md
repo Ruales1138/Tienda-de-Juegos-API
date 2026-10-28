@@ -70,3 +70,26 @@ El middleware centralizado lee `Authorization: Bearer <token>` y distingue:
 
 - `401` si falta el token, es inválido o expiró.
 - `403` si el token es válido, pero el rol no tiene permiso.
+
+## Endpoints del catálogo e interacciones
+
+Catálogo de videojuegos:
+
+- `GET /api/videojuegos?page=1&limit=10` es público y responde con
+  `pagination` y `data`.
+- `GET /api/videojuegos/:id` es público.
+- `POST /api/videojuegos` requiere rol `ADMIN`.
+- `PUT /api/videojuegos/:id` requiere rol `ADMIN`.
+- `DELETE /api/videojuegos/:id` requiere rol `ADMIN`.
+
+Solicitudes:
+
+- `POST /api/solicitudes` requiere autenticación. El usuario se toma del JWT,
+  nunca del body.
+- `GET /api/solicitudes/mias` devuelve únicamente las solicitudes del usuario
+  autenticado.
+- `GET /api/solicitudes` requiere rol `ADMIN` y devuelve todas las solicitudes.
+
+Los bodies, ids y parámetros de paginación inválidos responden `400`; los
+recursos inexistentes responden `404`; y los conflictos de unicidad o
+relaciones responden `409`.

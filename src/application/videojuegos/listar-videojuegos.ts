@@ -6,7 +6,7 @@ import type {
 export class ListarVideojuegos {
   constructor(private readonly repository: VideojuegoRepository) {}
 
-  execute(): Promise<Videojuego[]> {
-    return this.repository.list();
+  execute(input: { skip: number; take: number }): Promise<Videojuego[]> {
+    return this.repository.list(input);
   }
 }

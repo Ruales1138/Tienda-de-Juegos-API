@@ -12,4 +12,6 @@ export interface SolicitudRepository {
     userId: string;
     videojuegoId: string;
   }): Promise<Solicitud>;
+  listByUser(userId: string): Promise<Solicitud[]>;
+  listAll(): Promise<Solicitud[]>;
 }
