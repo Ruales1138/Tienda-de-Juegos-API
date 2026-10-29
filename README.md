@@ -66,6 +66,15 @@ El token se firma con `JWT_SECRET`, expira según `JWT_EXPIRES_IN` y solo
 contiene el `id` y el `role` del usuario. Las contraseñas se almacenan con
 bcrypt y nunca se incluyen en las respuestas.
 
+Flujo de login: el frontend envía el formulario a `POST /api/auth/login`; la
+API busca el correo, compara la contraseña con bcrypt y firma un JWT. El
+frontend guarda el token para sobrevivir al refresco y lo agrega como
+`Authorization: Bearer <token>` en las siguientes solicitudes. Una ruta
+protegida valida la firma y deja `id` y `role` disponibles para autorización.
+Guardar el token en `localStorage` facilita la persistencia, pero expone la
+sesión a robo si existiera un ataque XSS; en una aplicación con requisitos
+mayores se preferiría una cookie `HttpOnly`, `Secure` y `SameSite`.
+
 El middleware centralizado lee `Authorization: Bearer <token>` y distingue:
 
 - `401` si falta el token, es inválido o expiró.
