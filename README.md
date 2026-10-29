@@ -4,6 +4,12 @@ API REST de Pixel Forge para la siguiente entrega. El backend se construye con
 Node.js, Express, TypeScript, Prisma y PostgreSQL, siguiendo una separación por
 capas: `domain`, `application`, `infrastructure` e `interface`.
 
+## Despliegues
+
+- Frontend en Vercel: https://tienda-de-juegos-frontend-c9y4.vercel.app
+- API en Render: https://pixel-forge-api-333z.onrender.com
+- Estado de la API: https://pixel-forge-api-333z.onrender.com/health
+
 ## Requisitos
 
 - Node.js 20 o superior.
